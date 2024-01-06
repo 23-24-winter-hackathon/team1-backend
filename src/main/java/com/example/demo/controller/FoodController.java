@@ -7,6 +7,7 @@ import com.example.demo.dto.ListDTO;
 import com.example.demo.dto.SliceDTO;
 import com.example.demo.repository.FoodRepository;
 import com.example.demo.service.FoodService;
+import jakarta.transaction.InvalidTransactionException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -51,7 +52,10 @@ public class FoodController {
         Pageable newPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort().and(Sort.by("view").descending()));
 
         return SliceDTO.createFoodCards(foodService.searchFood(keyword, newPageable));
-
     }
 
+    @GetMapping("/click")
+    public Integer click(@RequestParam Integer apiIndex)  {
+        return foodService.click(apiIndex);
+    }
 }

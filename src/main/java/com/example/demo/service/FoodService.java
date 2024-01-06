@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Food;
 import com.example.demo.repository.FoodRepository;
+import jakarta.transaction.InvalidTransactionException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Math.min;
 
@@ -28,5 +30,11 @@ public class FoodService {
 
     public Slice<Food> searchFood(String keyword, Pageable pageable) {
         return foodRepository.findByFoodNameContaining(keyword, pageable);
+    }
+
+    public Integer click(Integer apiIndex) {
+        Food food = foodRepository.findByApiIndex(apiIndex).orElseThrow(RuntimeException::new);
+        food.increaseView();
+        return food.getView();
     }
 }
