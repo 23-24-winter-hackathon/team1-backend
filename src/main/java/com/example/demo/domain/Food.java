@@ -28,13 +28,22 @@ public class Food {
     private WayToCook wayToCook;
 
     private Integer view = 0;
-    private Integer index;
+    private Integer apiIndex;
     private String imgSrc;
 
     @OneToOne
     @JoinColumn(name = "nutrition_id")
     private Nutrition nutrition;
 
-    @OneToMany(mappedBy = "food")
-    private List<FoodIngredient> foodIngredient = new ArrayList<>();
+    private String ingredients;
+
+    public Food(String foodName, FoodType foodType, WayToCook wayToCook, Integer index, String imgSrc, Nutrition nutrition, String ingredients) {
+        this.foodName = foodName;
+        this.foodType = foodType;
+        this.wayToCook = wayToCook;
+        this.apiIndex = index;
+        this.imgSrc = imgSrc;
+        this.nutrition = nutrition;
+        this.ingredients = ingredients;
+    }
 }

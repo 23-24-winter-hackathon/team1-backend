@@ -23,4 +23,11 @@ public class Nutrition {
     private Double carbon;
     private Double protein;
     private Double fat;
+
+    public Nutrition(Double calorie, Double carbon, Double protein, Double fat) {
+        this.calorie = calorie;
+        this.carbon = carbon;
+        this.protein = protein;
+        this.fat = fat;
+    }
 }
