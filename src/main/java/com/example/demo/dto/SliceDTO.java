@@ -15,6 +15,5 @@ public class SliceDTO <T> {
     private Integer count;
     private Boolean hasNext;
     private Integer page;
-    private Integer size;
     private List<T> data;
 }
