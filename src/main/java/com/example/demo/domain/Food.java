@@ -47,4 +47,8 @@ public class Food {
         this.nutrition = nutrition;
         this.ingredients = ingredients;
     }
+
+    public void increaseView() {
+        this.view++;
+    }
 }

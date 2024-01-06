@@ -21,5 +21,7 @@ public interface FoodRepository extends JpaRepository<Food, Long>, FoodRepositor
 
     Slice<Food> findByFoodNameContaining(String keyword, Pageable pageable);
 
+    Food findByApiIndex(Integer index);
+
 
 }

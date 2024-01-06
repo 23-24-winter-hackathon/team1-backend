@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Food;
-import com.example.demo.dto.FoodCardDTO;
-import com.example.demo.dto.HelloRequestDTO;
-import com.example.demo.dto.ListDTO;
-import com.example.demo.dto.SliceDTO;
+import com.example.demo.dto.*;
 import com.example.demo.repository.FoodRepository;
 import com.example.demo.service.FoodService;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +49,12 @@ public class FoodController {
 
         return SliceDTO.createFoodCards(foodService.searchFood(keyword, newPageable));
 
+    }
+
+    @PostMapping("/view")
+    public ViewDTO view(@RequestParam Integer index) {
+        Integer view = foodService.view(index);
+        return new ViewDTO(view);
     }
 
 }
