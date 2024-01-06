@@ -37,6 +37,7 @@ public class FoodController {
 
     @PostMapping("/hello")
     public SliceDTO<FoodCardDTO> hello(@RequestBody HelloRequestDTO helloRequestDTO) {
+        log.info("helloRequestDTO.getIngredient() : {}", helloRequestDTO.getIngredient());
         Sort sort = Sort.by(helloRequestDTO.getOrderBy());
         if (helloRequestDTO.getSortBy().equals("desc")) sort = sort.descending();
         PageRequest pageRequest = PageRequest.of(helloRequestDTO.getPageNumber(), helloRequestDTO.getPageSize(), sort.and(Sort.by("view").descending()));
