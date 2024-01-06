@@ -58,7 +58,7 @@ public class XmlReader {
                 "        <MSG>정상처리되었습니다.</MSG>\n" +
                 "    </RESULT>");
         for (int i = 1; i < 1200; i+=300) {
-            String temp = url + i + "/" + (i + 49) + "/";
+            String temp = url + i + "/" + (i + 299) + "/";
             String response = restTemplate.exchange(temp, HttpMethod.POST, null, String.class).getBody();
             int newlineIndex = response.indexOf("<row id=\"0\">");
                 // 개행 문자 다음부터의 문자열을 추출
