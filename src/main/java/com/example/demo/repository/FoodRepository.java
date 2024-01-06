@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface FoodRepository extends JpaRepository<Food, Long> {
+public interface FoodRepository extends JpaRepository<Food, Long>, FoodRepositoryCustom {
 
     @Query(value = "SELECT * FROM food order by RAND() limit :num ", nativeQuery = true)
     List<Food> findRandom(@Param("num") int num);
