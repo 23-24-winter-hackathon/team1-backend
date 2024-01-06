@@ -41,6 +41,8 @@ public class FoodRepositoryImpl implements FoodRepositoryCustom{
                 .where(foodEq(helloRequestDTO))
                 .limit(pageable.getPageSize() + 1)
                 .offset(pageable.getOffset())
+                .orderBy(getOrderSpecifier(pageable.getSort())
+                        .stream().toArray(OrderSpecifier[]::new))
                 .fetch();
         Boolean hasNext = false;
         Integer size = foods.size();
