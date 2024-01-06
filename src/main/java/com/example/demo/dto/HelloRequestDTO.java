@@ -25,8 +25,8 @@ public class HelloRequestDTO {
     private Optional<Double> calorieMin = Optional.empty();
     private Optional<Double> calorieMax = Optional.empty();
 
-    private Integer pageNumber;
-    private Integer pageSize;
-    private String orderBy;
-    private String sortBy;
+    private Integer pageNumber = 0;
+    private Integer pageSize = 20;
+    private String orderBy = "view";
+    private String sortBy = "asc";
 }
