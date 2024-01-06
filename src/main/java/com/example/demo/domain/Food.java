@@ -28,7 +28,7 @@ public class Food {
     private WayToCook wayToCook;
 
     private Integer view = 0;
-    private Integer index;
+    private Integer apiIndex;
     private String imgSrc;
 
     @OneToOne
