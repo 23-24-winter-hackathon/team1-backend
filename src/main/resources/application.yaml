@@ -4,6 +4,9 @@ spring:
     url: jdbc:mysql://localhost:3306/scg
     username: root
     password: 1234
+  sql:
+    init:
+      schema-locations: classpath*:schema.sql
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -13,3 +16,4 @@ spring:
     properties:
       hibernate:
         format_sql: false
+    defer-datasource-initialization: true

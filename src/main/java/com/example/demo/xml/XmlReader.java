@@ -33,6 +33,7 @@ public class XmlReader {
     private final FoodRepository foodRepository;
     private final NutritionRepository nutritionRepository;
 
+    @PostConstruct
     public void readXml() throws ParserConfigurationException, IOException, SAXException {
         String fileName = "data.xml";
         Document document = getDocument(path + fileName);
