@@ -39,8 +39,8 @@ public class FoodController {
     public SliceDTO<FoodCardDTO> hello(@RequestBody HelloRequestDTO helloRequestDTO) {
         if(helloRequestDTO.getOrderBy() == null) helloRequestDTO.setOrderBy("view");
         if(helloRequestDTO.getSortBy() ==null) helloRequestDTO.setSortBy("asc");
-        if(helloRequestDTO.getPageNumber() == null) helloRequestDTO.setPageNumber(20);
-        if(helloRequestDTO.getPageSize() == null) helloRequestDTO.setPageSize(0);
+        if(helloRequestDTO.getPageNumber() == null) helloRequestDTO.setPageNumber(0);
+        if(helloRequestDTO.getPageSize() == null) helloRequestDTO.setPageSize(20);
         log.info("helloRequestDTO.getIngredient() : {}", helloRequestDTO.getIngredient());
         Sort sort = Sort.by(helloRequestDTO.getOrderBy());
         if (helloRequestDTO.getSortBy().equals("desc")) sort = sort.descending();
