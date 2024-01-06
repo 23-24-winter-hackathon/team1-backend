@@ -1,13 +1,12 @@
 package com.example.demo.dto;
 
+import com.example.demo.domain.enums.FoodType;
 import com.example.demo.domain.enums.WayToCook;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.Optional;
 public class HelloRequestDTO {
     private List<String> ingredient = new ArrayList<>();
     private List<WayToCook> wayToCook = new ArrayList<>();
+    private List<FoodType> foodType = new ArrayList<>();
 
     @Min(0)
     private Optional<Double> calorieMin = Optional.empty();

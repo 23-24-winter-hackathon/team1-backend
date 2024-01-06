@@ -66,8 +66,8 @@ public class FoodRepositoryImpl implements FoodRepositoryCustom{
         for (String ingredient : req.getIngredient()) {
             foodEq.and(food.ingredients.contains(ingredient));
         }
+        if(!req.getFoodType().isEmpty()) foodEq.and(food.foodType.in(req.getFoodType()));
         if(!req.getWayToCook().isEmpty()) foodEq.and(food.wayToCook.in(req.getWayToCook()));
-        log.info("foodEq : {}", foodEq);
         return foodEq;
     }
 
