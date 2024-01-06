@@ -11,7 +11,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -20,7 +22,11 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,9 +41,44 @@ public class XmlReader {
 
     @PostConstruct
     public void readXml() throws ParserConfigurationException, IOException, SAXException {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://openapi.foodsafetykorea.go.kr/api/21b0f4c6886d44648373/COOKRCP01/xml/";
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
+        headers.setContentType(mediaType);
+
         String fileName = "data.xml";
+        FileWriter fileWriter = new FileWriter(path + fileName);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<COOKRCP01>\n" +
+                "    <total_count>1124</total_count>\n" +
+                "    <RESULT>\n" +
+                "        <CODE>INFO-000</CODE>\n" +
+                "        <MSG>정상처리되었습니다.</MSG>\n" +
+                "    </RESULT>");
+        for (int i = 1; i < 1200; i+=300) {
+            String temp = url + i + "/" + (i + 49) + "/";
+            String response = restTemplate.exchange(temp, HttpMethod.POST, null, String.class).getBody();
+            int newlineIndex = response.indexOf("<row id=\"0\">");
+                // 개행 문자 다음부터의 문자열을 추출
+            int endIndex = response.indexOf("</COOKRCP01>");
+            log.info("newlineIndex : {}, {}", newlineIndex, endIndex);
+            if(newlineIndex == -1 || endIndex == -1) {
+                i -= 50;
+                continue;
+            }
+            response = response.substring(newlineIndex, endIndex - 1);
+            printWriter.print(response);
+        }
+        printWriter.print("\n" +
+                "</COOKRCP01>\n");
+        printWriter.close();
+        fileWriter.close();
         Document document = getDocument(path + fileName);
         convertDocToObject(document);
+        File file = new File(path + fileName);
+        file.delete();
     }
 
     private void convertDocToObject(Document document) {
