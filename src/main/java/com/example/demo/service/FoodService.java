@@ -29,4 +29,10 @@ public class FoodService {
     public Slice<Food> searchFood(String keyword, Pageable pageable) {
         return foodRepository.findByFoodNameContaining(keyword, pageable);
     }
+
+    public Integer click(Integer apiIndex) {
+        Food food = foodRepository.findByApiIndex(apiIndex).orElseThrow(RuntimeException::new);
+        food.increaseView();
+        return food.getView();
+    }
 }

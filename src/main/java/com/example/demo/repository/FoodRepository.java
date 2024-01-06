@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -22,4 +23,5 @@ public interface FoodRepository extends JpaRepository<Food, Long>, FoodRepositor
     Slice<Food> findByFoodNameContaining(String keyword, Pageable pageable);
 
 
+    Optional<Food> findByApiIndex(Integer apiIndex);
 }

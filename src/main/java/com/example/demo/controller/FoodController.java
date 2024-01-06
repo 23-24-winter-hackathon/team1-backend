@@ -54,4 +54,9 @@ public class FoodController {
 
     }
 
+    @GetMapping("/click")
+    public Integer click(@RequestParam Integer apiIndex)  {
+        return foodService.click(apiIndex);
+    }
+
 }
