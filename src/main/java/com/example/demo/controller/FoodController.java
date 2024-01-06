@@ -37,6 +37,10 @@ public class FoodController {
 
     @PostMapping("/hello")
     public SliceDTO<FoodCardDTO> hello(@RequestBody HelloRequestDTO helloRequestDTO) {
+        if(helloRequestDTO.getOrderBy() == null) helloRequestDTO.setOrderBy("view");
+        if(helloRequestDTO.getSortBy() ==null) helloRequestDTO.setSortBy("asc");
+        if(helloRequestDTO.getPageNumber() == null) helloRequestDTO.setPageNumber(20);
+        if(helloRequestDTO.getPageSize() == null) helloRequestDTO.setPageSize(0);
         log.info("helloRequestDTO.getIngredient() : {}", helloRequestDTO.getIngredient());
         Sort sort = Sort.by(helloRequestDTO.getOrderBy());
         if (helloRequestDTO.getSortBy().equals("desc")) sort = sort.descending();
