@@ -38,11 +38,12 @@ public class FoodController {
     @PostMapping("/hello")
     public SliceDTO<FoodCardDTO> hello(@RequestBody HelloRequestDTO helloRequestDTO) {
         Sort sort = Sort.by(helloRequestDTO.getOrderBy());
-        if(helloRequestDTO.getSortBy().equals("desc")) sort = sort.descending();
+        if (helloRequestDTO.getSortBy().equals("desc")) sort = sort.descending();
         PageRequest pageRequest = PageRequest.of(helloRequestDTO.getPageNumber(), helloRequestDTO.getPageSize(), sort.and(Sort.by("view").descending()));
         SliceDTO<Food> cards = foodRepository.findFoodCardsWithMany(helloRequestDTO, pageRequest);
         List<FoodCardDTO> cardDatas = cards.getData().stream().map(FoodCardDTO::new).collect(Collectors.toList());
         return new SliceDTO<>(cards.getCount(), cards.getHasNext(), cards.getPage(), cardDatas);
+    }
 
     @GetMapping("/search")
     public SliceDTO<FoodCardDTO> searchFoodCard(@RequestParam String keyword, Pageable pageable) {
