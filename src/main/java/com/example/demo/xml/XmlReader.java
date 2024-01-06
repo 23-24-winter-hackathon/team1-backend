@@ -3,6 +3,7 @@ package com.example.demo.xml;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -27,21 +28,9 @@ public class XmlReader {
     }
 
     private static void convertDocToObject(Document document, Map<String ,Double> processorModelTdps) {
-        NodeList wayToCook = document.getElementsByTagName("RCP_WAY2");
-        NodeList foodType = document.getElementsByTagName("RCP_PAT2");
-        Set<String> wayToCooks = new HashSet<>();
-        for (int i = 0; i < wayToCook.getLength(); i++) {
-            wayToCooks.add(wayToCook.item(i).getTextContent());
-        }
-        for (String toCook : wayToCooks) {
-            log.info("toCook : {}", toCook);
-        }
-        Set<String> foodTypes = new HashSet<>();
-        for (int i = 0; i < foodType.getLength(); i++) {
-            foodTypes.add(foodType.item(i).getTextContent());
-        }
-        for (String type : foodTypes) {
-            log.info("type : {}", type);
+        NodeList ingredients = document.getElementsByTagName("RCP_PARTS_DTLS");
+        for (int i = 0; i < ingredients.getLength(); i++) {
+            log.info("ingredients : {}", ingredients.item(i).getTextContent());
         }
     }
 

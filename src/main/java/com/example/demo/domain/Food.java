@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -31,4 +34,7 @@ public class Food {
     @OneToOne
     @JoinColumn(name = "nutrition_id")
     private Nutrition nutrition;
+
+    @OneToMany(mappedBy = "food")
+    private List<FoodIngredient> foodIngredient = new ArrayList<>();
 }
