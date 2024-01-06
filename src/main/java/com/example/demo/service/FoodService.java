@@ -5,6 +5,8 @@ import com.example.demo.repository.FoodRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +24,9 @@ public class FoodService {
 
     public List<Food> recommend() {
         return foodRepository.findRandom(3);
+    }
+
+    public Slice<Food> searchFood(String keyword, Pageable pageable) {
+        return foodRepository.findByFoodNameContaining(keyword, pageable);
     }
 }
