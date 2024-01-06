@@ -35,6 +35,7 @@ public class Food {
     @JoinColumn(name = "nutrition_id")
     private Nutrition nutrition;
 
+    @Lob
     private String ingredients;
 
     public Food(String foodName, FoodType foodType, WayToCook wayToCook, Integer index, String imgSrc, Nutrition nutrition, String ingredients) {

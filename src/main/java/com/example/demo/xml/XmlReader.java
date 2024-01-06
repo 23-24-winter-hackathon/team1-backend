@@ -4,6 +4,8 @@ import com.example.demo.domain.Food;
 import com.example.demo.domain.Nutrition;
 import com.example.demo.domain.enums.FoodType;
 import com.example.demo.domain.enums.WayToCook;
+import com.example.demo.repository.FoodRepository;
+import com.example.demo.repository.NutritionRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -28,7 +30,10 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class XmlReader {
     private final String path = "src/main/resources/";
+    private final FoodRepository foodRepository;
+    private final NutritionRepository nutritionRepository;
 
+    @PostConstruct
     public void readXml() throws ParserConfigurationException, IOException, SAXException {
         String fileName = "data.xml";
         Document document = getDocument(path + fileName);
@@ -63,7 +68,9 @@ public class XmlReader {
             String imgSrc = imgSrcs.item(i).getTextContent();
 
             Nutrition nutrition = new Nutrition(calorie, carbon, protein, fat);
+            nutritionRepository.save(nutrition);
             Food food = new Food(foodName, foodType, wayToCook, id, imgSrc, nutrition, ingredient);
+            foodRepository.save(food);
         }
     }
 
